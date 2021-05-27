@@ -1,30 +1,82 @@
 <html>
 <head></head>
 <title>
+
 My Task </title>
-<style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script><style>
 .body{
     background-color:pink
 }
 </style>
+<script>
+function check(){
+  
+   var name=  document.myform.name.value;  
+        var email=document.myform.email.value;
+             var dob=document.myform.dob.value;
+               var age=document.myform.age.value;
+              
+   var phone_no=document.myform.phone.value;
+ 
+          if (name=="")
+          {
+       alert("name should not be empty");
+        return false;  
+   }
 
+                    if(dob==""){
+                            alert("dob should not be empty");
+                        return false;  
+                    }
+
+                if(email==""){
+                    alert("email should not be empty");
+                        return false;  
+                }
+                if(age==""){
+                    alert("age should not be empty");
+                        return false;  
+                }
+               
+                if(phone_no==""){
+                    alert("phone_no should not be empty");
+                        return false;  
+                }
+               
+
+}
+
+</script>
 <body>
 
-            <form action="" method="POST">
-
+            <form name="myform" action="" method="POST" class="row g-3">
+    <div class="col-12">
     <label for="name">Name</label><br>
-<input type="text" name="name"><br>
+<input type="text" name="name" ><br>
+</div>
+<div class="col-12">
 <label for="db">DOB</label><br>
-<input type="text" name="dob"><br>
-<label for="email">Email</label><br>
-<input type="text" name="email"><br>
+<input type="date" name="dob"><br>
+</div>
+
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" >
+  </div>
+<div class="col-12">
 <label for="phone">Phone No</label><br>
 <input type="text" name="phone"><br>
-<input type="submit" value="Registration">
+</div>
+<div class="col-12">
+<label for="db">Age</label><br>
+<input type="text" name="age" ><br>
+</div>
+<div class="col-12">
+<input type="submit" value="Registration" class="btn btn-primary"  onclick="check()">
+</div>
 </form>
-{{range.}}
-{{.}}
-{{end}}
+
 </body>
 
 </html>

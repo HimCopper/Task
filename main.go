@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/smtp"
 
-				
 	_ "github.com/go-sql-driver/mysql"
 )
 
@@ -16,15 +15,14 @@ type user struct {
 	Dob      string
 	Email    string
 	Phone_no string
+	Age      string
 }
 
 var tpl *template.Template
-var tpl1 *template.Template
+
 var t *template.Template
 
 var form *template.Template
-
-
 
 func init() {
 
@@ -59,7 +57,7 @@ func confiq() (db *sql.DB) {
 		fmt.Println(err)
 	}
 
-     	return db
+	return db
 }
 
 func registration(w http.ResponseWriter, r *http.Request) {
@@ -77,16 +75,17 @@ func registration(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(Email)
 		Phone_no := r.FormValue("phone")
 		fmt.Println(Phone_no)
-		u = user{Name, Dob, Email, Phone_no}
+		Age := r.FormValue("age")
+		fmt.Println(Age)
 
-		insert, err := db.Prepare("insert into form(Name , Dob, Email ,Phone_no) values(?,?,?,?)")
-				
-		fmt.Println(insert)
+		u = user{Name, Dob, Email, Phone_no, Age}
+
+		insert, err := db.Prepare("insert into form (Name , Dob, Email ,Phone_no, Age) values(?,?,?,?,?)")
 
 		if err != nil {
 			panic(err.Error())
 		}
-		insert.Exec(Name, Dob, Email, Phone_no)
+	          	insert.Exec(Name, Dob, Email, Phone_no, Age)
 
 		defer db.Close()
 	}
@@ -119,7 +118,7 @@ func registration(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("Email Sent Successfully!")
 
-	http.Redirect(w, r, "/form", 404)
+	//http.Redirect(w, r, "/", 404)
 
 }
 
@@ -136,14 +135,13 @@ func submitform(w http.ResponseWriter, r *http.Request) {
 	for sel.Next() {
 
 		var u user
-		err = sel.Scan(&u.Name, &u.Dob, &u.Email, &u.Phone_no)
+		err = sel.Scan(&u.Name, &u.Dob, &u.Email, &u.Phone_no, &u.Age)
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(u.Name, u.Dob, u.Email, u.Phone_no)
-	
-	form.ExecuteTemplate(w,"submitform.gohtml",u)
-	
+		fmt.Println(u.Name, u.Dob, u.Email, u.Phone_no, u.Age)
+
+		form.ExecuteTemplate(w, "submitform.gohtml", u)
 
 	}
 
