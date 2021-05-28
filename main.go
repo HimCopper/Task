@@ -81,7 +81,7 @@ func registration(w http.ResponseWriter, r *http.Request) {
 		u = user{Name, Dob, Email, Phone_no, Age}
 
 		insert, err := db.Prepare("insert into form (Name , Dob, Email ,Phone_no, Age) values(?,?,?,?,?)")
-
+				fmt.Println(insert)
 		if err != nil {
 			panic(err.Error())
 		}
